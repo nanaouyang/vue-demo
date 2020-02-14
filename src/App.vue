@@ -1,19 +1,8 @@
 <template>
   <div id="app">
-    <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
-    </div>
-    <HelloWorld></HelloWorld>
-    <button v-on:click="show = !show">
-      Toggle
-    </button>
-    <transition name="slide-fade">
-      <p v-if="show">hello</p>
-    </transition>
-    <transition name="fade">
-      <router-view />
-    </transition>
+    <el-button @click="changeMsg">aaa</el-button>
+    <el-input v-model="msg"></el-input>
+    <router-view />
   </div>
 </template>
 
@@ -25,8 +14,23 @@ export default {
   },
   data() {
     return {
-      show: true
+      msg: "Hello Vue.",
+      msg1: "",
+      msg2: "",
+      msg3: "",
+      obj: {},
+      show: false
     };
+  },
+  methods: {
+    changeMsg() {
+      this.msg = "Hello world.";
+      this.msg1 = this.$refs.msgDiv.innerHTML;
+      this.$nextTick(() => {
+        this.msg2 = this.$refs.msgDiv.innerHTML;
+      });
+      this.msg3 = this.$refs.msgDiv.innerHTML;
+    }
   }
 };
 </script>
