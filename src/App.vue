@@ -4,29 +4,40 @@
       <router-link to="/">Home</router-link> |
       <router-link to="/about">About</router-link>
     </div>
-    <router-view />
+    <HelloWorld></HelloWorld>
+    <button v-on:click="show = !show">
+      Toggle
+    </button>
+    <transition name="slide-fade">
+      <p v-if="show">hello</p>
+    </transition>
+    <transition name="fade">
+      <router-view />
+    </transition>
   </div>
 </template>
 
-<style lang="scss">
+<script>
+export default {
+  name: "app",
+  mounted() {
+    console.log(this.$http.get("aa"));
+  },
+  data() {
+    return {
+      show: true
+    };
+  }
+};
+</script>
+
+<style>
 #app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
+  font-family: "Avenir", Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
-}
-
-#nav {
-  padding: 30px;
-
-  a {
-    font-weight: bold;
-    color: #2c3e50;
-
-    &.router-link-exact-active {
-      color: #42b983;
-    }
-  }
+  margin-top: 60px;
 }
 </style>
