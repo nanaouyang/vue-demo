@@ -1,9 +1,10 @@
 <template>
   <div id="app">
     <el-button @click="changeMsg">aaa</el-button>
+    <vi-modal> <el-button>弹窗</el-button> </vi-modal>
     <el-input v-model="msg"></el-input>
     <component :is="msg"></component>
-<!--    <router-view />-->
+    <!--    <router-view />-->
   </div>
 </template>
 
@@ -13,19 +14,19 @@ export default {
   mounted() {
     console.log(this.$http.get("aa"));
   },
-  components:{
-    'tab1':()=>import('./views/tab1'),
-    'tab2':()=>import('./views/tab2'),
+  components: {
+    tab1: () => import("./views/tab1"),
+    tab2: () => import("./views/tab2"),
   },
   data() {
     return {
-      currentComponent:"",
+      currentComponent: "",
       msg: "tab1",
       msg1: "",
       msg2: "",
       msg3: "",
       obj: {},
-      show: false
+      show: false,
     };
   },
   methods: {
@@ -36,8 +37,8 @@ export default {
         this.msg2 = this.$refs.msgDiv.innerHTML;
       });
       this.msg3 = this.$refs.msgDiv.innerHTML;
-    }
-  }
+    },
+  },
 };
 </script>
 
