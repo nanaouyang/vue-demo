@@ -18,6 +18,12 @@ export default new Vuex.Store({
       state.count--;
     },
   },
-  actions: {},
+  actions: {
+    asyncAdd({ commit }) {
+      setTimeout(() => {
+        commit("add");
+      }, 1000);
+    },
+  },
   modules: {},
 });

@@ -5,6 +5,7 @@
     {{ user1 }}
     {{ user2 }}
     <el-button @click="add">+</el-button>
+    <el-button @click="asyncAdd">async+</el-button>
     <el-button @click="min">-</el-button>
     <vi-modal> <el-button>弹窗</el-button> </vi-modal>
     <el-input v-model="msg"></el-input>
@@ -46,6 +47,9 @@ export default {
   methods: {
     add() {
       this.$store.commit("add");
+    },
+    asyncAdd() {
+      this.$store.dispatch({ type: "asyncAdd" });
     },
     min() {
       this.$store.commit("min");
