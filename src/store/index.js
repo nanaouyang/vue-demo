@@ -1,14 +1,13 @@
 import Vue from "vue";
 import Vuex from "vuex";
+import { user } from "./user";
+import { list } from "../services/api";
 
 Vue.use(Vuex);
 
 export default new Vuex.Store({
   state: {
     count: 0,
-    user: {
-      name: "zifeng",
-    },
   },
   mutations: {
     add(state) {
@@ -17,13 +16,15 @@ export default new Vuex.Store({
     min(state) {
       state.count--;
     },
-  },
-  actions: {
-    asyncAdd({ commit }) {
-      setTimeout(() => {
-        commit("add");
-      }, 1000);
+    set(state, payload) {
+      state.user = { ...state.user, ...payload.payload };
     },
   },
-  modules: {},
+  actions: {
+    async asyncAdd({ commit }) {
+      const { data } = await list();
+      commit({ type: "set", payload: data });
+    },
+  },
+  modules: { user },
 });
