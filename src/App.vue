@@ -44,6 +44,7 @@ export default {
       show: false,
     };
   },
+  watch: {},
   methods: {
     add() {
       this.$store.commit("add");
