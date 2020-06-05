@@ -1,22 +1,36 @@
 <template>
   <div id="app">
-    <el-button @click="changeMsg">aaa</el-button>
+    {{ user }}
+    {{ count }}
+    {{ user1 }}
+    {{ user2 }}
+    <el-button @click="add">+</el-button>
+    <el-button @click="min">-</el-button>
     <vi-modal> <el-button>弹窗</el-button> </vi-modal>
     <el-input v-model="msg"></el-input>
     <component :is="msg"></component>
-    <!--    <router-view />-->
+    <router-view />
   </div>
 </template>
 
 <script>
+import { mapState } from "vuex";
 export default {
   name: "app",
   mounted() {
-    console.log(this.$http.get("aa"));
+    console.log(this.$store.state.user.name);
   },
   components: {
     tab1: () => import("./views/tab1"),
     tab2: () => import("./views/tab2"),
+  },
+  // computed: mapState({
+  //   user1: (state) => state.user.name,
+  //   user2: "user",
+  // }),
+  // computed: mapState(["user"]),
+  computed: {
+    ...mapState(["user", "count"]),
   },
   data() {
     return {
@@ -30,13 +44,11 @@ export default {
     };
   },
   methods: {
-    changeMsg() {
-      this.msg = "Hello world.";
-      this.msg1 = this.$refs.msgDiv.innerHTML;
-      this.$nextTick(() => {
-        this.msg2 = this.$refs.msgDiv.innerHTML;
-      });
-      this.msg3 = this.$refs.msgDiv.innerHTML;
+    add() {
+      this.$store.commit("add");
+    },
+    min() {
+      this.$store.commit("min");
     },
   },
 };
