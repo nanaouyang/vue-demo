@@ -2,7 +2,8 @@
   <div id="app">
     <el-button @click="changeMsg">aaa</el-button>
     <el-input v-model="msg"></el-input>
-    <router-view />
+    <component :is="msg"></component>
+<!--    <router-view />-->
   </div>
 </template>
 
@@ -12,9 +13,14 @@ export default {
   mounted() {
     console.log(this.$http.get("aa"));
   },
+  components:{
+    'tab1':()=>import('./views/tab1'),
+    'tab2':()=>import('./views/tab2'),
+  },
   data() {
     return {
-      msg: "Hello Vue.",
+      currentComponent:"",
+      msg: "tab1",
       msg1: "",
       msg2: "",
       msg3: "",
