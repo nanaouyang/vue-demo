@@ -2,8 +2,8 @@
   <div id="app">
     {{ user }}
     {{ count }}
-    {{ user1 }}
-    {{ user2 }}
+    <!--    {{ user1 }}-->
+    <!--    {{ user2 }}-->
     <el-button @click="add">+</el-button>
     <el-button @click="asyncAdd">async+</el-button>
     <el-button @click="min">-</el-button>
