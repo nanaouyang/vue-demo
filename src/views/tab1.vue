@@ -1,14 +1,14 @@
 <template>
   <div>
     {{ test }}
-    <ul>
-      <li v-for="(item, index) in state.todoList" :key="index">{{ item }}</li>
-    </ul>
     <button @click="increment">
       Count is: {{ state.count }}, double is: {{ state.double }}
     </button>
     <button @click="test = '222'">修改</button>
     <button @click="console">console</button>
+    <ul>
+      <li v-for="(item, index) in state.todoList" :key="index">{{ item }}</li>
+    </ul>
   </div>
 </template>
 
