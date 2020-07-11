@@ -1,6 +1,7 @@
 <template>
   <div>
     <div @click="visible = true"><slot></slot></div>
+    <slot :slotProps="visible" name="test1"></slot>
     <el-dialog title="提示" :visible.sync="visible" width="30%">
       <span>这是一段信息</span>
     </el-dialog>
@@ -9,7 +10,7 @@
 
 <script>
 export default {
-  name: "viModal",
+  name: "ViModal",
   data() {
     return {
       visible: false,

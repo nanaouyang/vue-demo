@@ -1,12 +1,16 @@
 import Vue from "vue";
-import "./plugins/axios";
 import App from "./App.vue";
-import router from "./router";
-import store from "./store";
-import "./plugins/element.js";
-import "./components";
 import VueCompositionApi from "@vue/composition-api";
 
+// import "./plugins/element.js";
+// import "./plugins/axios";
+import "./plugins";
+import "./components";
+import customPrototype from "./prototype";
+
+import router from "./router";
+import store from "./store";
+Vue.use(customPrototype);
 Vue.use(VueCompositionApi);
 
 Vue.config.productionTip = false;
