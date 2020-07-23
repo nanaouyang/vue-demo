@@ -1,5 +1,6 @@
 <template>
   <div id="app">
+    <div id="hook-arguments-example" v-demo:foo.sync="message"></div>
     <tab2></tab2>
     <img :src="img()" alt="" />
     <HelloWorld></HelloWorld>
@@ -66,6 +67,7 @@ export default {
   },
   data() {
     return {
+      message: "dasd",
       currentComponent: "",
       msg: "tab1",
       msg1: "",

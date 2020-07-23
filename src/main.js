@@ -6,8 +6,8 @@ import VueCompositionApi from "@vue/composition-api";
 // import "./plugins/axios";
 import "./plugins";
 import "./components";
+import "./directive";
 import customPrototype from "./prototype";
-
 import router from "./router";
 import store from "./store";
 Vue.use(customPrototype);
