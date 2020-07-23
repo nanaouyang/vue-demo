@@ -1,5 +1,7 @@
 <template>
   <div id="app">
+    <tab2></tab2>
+    <img :src="img()" alt="" />
     <HelloWorld></HelloWorld>
     {{ user }}
     {{ count }}
@@ -43,7 +45,7 @@
 
 <script>
 import { mapState } from "vuex";
-
+import { Img } from "coms";
 export default {
   name: "app",
   mounted() {
@@ -109,6 +111,9 @@ export default {
   },
   watch: {},
   methods: {
+    img() {
+      return Img.random(400, 400);
+    },
     add() {
       this.$store.commit("add");
     },

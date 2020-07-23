@@ -2400,6 +2400,11 @@ compression@^1.7.4:
     safe-buffer "5.1.2"
     vary "~1.1.2"
 
+coms@^0.1.6:
+  version "0.1.6"
+  resolved "https://registry.npmjs.org/coms/-/coms-0.1.6.tgz#b75d0669c6c21229250fd2c7a5444bde99e05223"
+  integrity sha512-zRzsO34Hyx1ozjdVQb9BS8mPUgL1fziIL6GGodmaVC6KN4r3mLLTz9OqnkjQQ7TMk2CKwHPGHfpJP2SP7RKu8w==
+
 concat-map@0.0.1:
   version "0.0.1"
   resolved "https://registry.npm.taobao.org/concat-map/download/concat-map-0.0.1.tgz#d8a96bd77fd68df7793a73036a3ba0d5405d477b"
