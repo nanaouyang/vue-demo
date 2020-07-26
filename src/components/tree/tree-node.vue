@@ -4,7 +4,7 @@
       <span v-if="isOpen">
         <!--        <div ref="icona"></div>-->
         <slot name="switcher-close"></slot>
-        <!--        <icon name="switcher-close"></icon>-->
+        <icon name="switcher-close"></icon>
         <!--          <template #switcher-close>-->
         <!--            11-->
         <!--          </template>-->
@@ -64,12 +64,14 @@ export default {
   props: ["nodeData", "multiple", "value", "deep"],
   components: {
     treeNode: () => import("./tree-node"),
-    // icon: {
-    //   props: ["name"],
-    //   render(h, context) {
-    //     return h("div", this.$slots[context.name]);
-    //   },
-    // },
+    icon: {
+      props: ["name"],
+      render() {
+        return this.$parent.$slots.default
+          ? this.$parent.$slots.default[0]
+          : null;
+      },
+    },
   },
   data() {
     return {
@@ -78,12 +80,13 @@ export default {
       selected: null,
     };
   },
-  // mounted() {
-  //   this.$nextTick().then(() => {
-  //     console.log(this.$parent.$slots["switcher-close"][0]);
-  //     console.log(this.$parent.$slots["switcher-open"][0]);
-  //   });
-  // },
+  mounted() {
+    this.$nextTick().then(() => {
+      console.log(this.$parent.$slots.default);
+      // console.log(this.$parent.$slots["switcher-close"][0]);
+      // console.log(this.$parent.$slots["switcher-open"][0]);
+    });
+  },
   methods: {
     handleClick() {
       this.$parent.$children.forEach((item) => {

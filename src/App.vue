@@ -8,6 +8,9 @@
       <template #switcher-open>
         ++
       </template>
+      <template #default>
+        opopop
+      </template>
     </cc-tree>
     <div id="hook-arguments-example" v-demo:foo.sync="message"></div>
     <tab2></tab2>
