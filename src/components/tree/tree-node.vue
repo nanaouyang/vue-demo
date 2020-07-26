@@ -1,12 +1,16 @@
 <template>
   <div>
     <span @click="isOpen = !isOpen" v-if="nodeData.children">
-      <slot name="open-icon">
-        {{ isOpen ? "-" : "" }}
-      </slot>
-      <slot name="hidden-icon">
-        {{ isOpen ? "" : "+" }}
-      </slot>
+      <span v-if="isOpen">
+        <slot name="hidden-icon">
+          -
+        </slot>
+      </span>
+      <span v-else>
+        <slot name="open-icon">
+          +
+        </slot>
+      </span>
     </span>
     <input
       :id="nodeData.id"
@@ -26,11 +30,14 @@
     <template v-if="isOpen">
       <template v-for="node in nodeData.children">
         <div :key="node.id" style="padding: 0 20px;">
-          <tree-node
-            v-model="selected"
-            :multiple="multiple"
-            :node-data="node"
-          ></tree-node>
+          <tree-node v-model="selected" :multiple="multiple" :node-data="node">
+            <template #open-icon>
+              打开
+            </template>
+            <template #hidden-icon>
+              关闭
+            </template>
+          </tree-node>
         </div>
       </template>
     </template>

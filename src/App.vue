@@ -1,11 +1,8 @@
 <template>
   <div id="app">
     {{ selected }}
-    <cc-tree
-      v-model="selected"
-      :multiple="false"
-      :dataSource="dataSource"
-    ></cc-tree>
+    <cc-tree v-model="selected" :multiple="false" :dataSource="dataSource">
+    </cc-tree>
     <div id="hook-arguments-example" v-demo:foo.sync="message"></div>
     <tab2></tab2>
     <img :src="img()" alt="" />
@@ -81,6 +78,7 @@ export default {
         { id: 4, pid: 1, value: "d", label: "dd" },
         { id: 5, pid: 3, value: "e", label: "ee" },
         { id: 6, pid: 2, value: "f", label: "ff" },
+        { id: 7, pid: 5, value: "g", label: "gg" },
       ],
       message: "dasd",
       currentComponent: "",

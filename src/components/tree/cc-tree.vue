@@ -7,6 +7,12 @@
         :key="node.id"
         :node-data="node"
       >
+        <template #open-icon>
+          打开
+        </template>
+        <template #hidden-icon>
+          关闭
+        </template>
       </tree-node>
     </template>
   </div>
