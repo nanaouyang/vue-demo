@@ -8,10 +8,14 @@
         :node-data="node"
       >
         <template #switcher-close>
-          <slot name="switcher-close"></slot>
+          <slot name="switcher-close">
+            -
+          </slot>
         </template>
         <template #switcher-open>
-          <slot name="switcher-open"></slot>
+          <slot name="switcher-open">
+            +
+          </slot>
         </template>
       </tree-node>
     </template>
