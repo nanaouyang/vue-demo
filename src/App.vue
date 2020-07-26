@@ -2,6 +2,12 @@
   <div id="app">
     {{ selected }}
     <cc-tree v-model="selected" :multiple="false" :dataSource="dataSource">
+      <template #switcher-close>
+        <span style="color: #f0f;">--</span>
+      </template>
+      <template #switcher-open>
+        ++
+      </template>
     </cc-tree>
     <div id="hook-arguments-example" v-demo:foo.sync="message"></div>
     <tab2></tab2>

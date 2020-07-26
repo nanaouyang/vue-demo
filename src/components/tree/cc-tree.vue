@@ -7,11 +7,11 @@
         :key="node.id"
         :node-data="node"
       >
-        <template #open-icon>
-          打开
+        <template #switcher-close>
+          <slot name="switcher-close"></slot>
         </template>
-        <template #hidden-icon>
-          关闭
+        <template #switcher-open>
+          <slot name="switcher-open"></slot>
         </template>
       </tree-node>
     </template>
@@ -39,6 +39,14 @@ export default {
       },
       immediate: true,
     },
+  },
+  components: {
+    // icon: {
+    //   props: ["name"],
+    //   render(h) {
+    //     return h("span", this.$slots[this.name]);
+    //   },
+    // },
   },
   computed: {
     treeData() {

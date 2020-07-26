@@ -2,14 +2,23 @@
   <div>
     <span @click="isOpen = !isOpen" v-if="nodeData.children">
       <span v-if="isOpen">
-        <slot name="hidden-icon">
-          -
-        </slot>
+        <!--        <div ref="icona"></div>-->
+        <slot name="switcher-close"></slot>
+        <!--        <icon name="switcher-close"></icon>-->
+        <!--          <template #switcher-close>-->
+        <!--            11-->
+        <!--          </template>-->
+        <!--        </icon>-->
+        <!--        </slot>-->
       </span>
       <span v-else>
-        <slot name="open-icon">
-          +
-        </slot>
+        <slot name="switcher-open"></slot>
+        <!--        <icon name="switcher-close"></icon>-->
+        <!--          <template #switcher-close>-->
+        <!--            222-->
+        <!--          </template>-->
+        <!--        </icon>-->
+        <!--        </slot>-->
       </span>
     </span>
     <input
@@ -31,11 +40,11 @@
       <template v-for="node in nodeData.children">
         <div :key="node.id" style="padding: 0 20px;">
           <tree-node v-model="selected" :multiple="multiple" :node-data="node">
-            <template #open-icon>
-              打开
+            <template #switcher-close>
+              <slot name="switcher-close"></slot>
             </template>
-            <template #hidden-icon>
-              关闭
+            <template #switcher-open>
+              <slot name="switcher-open"></slot>
             </template>
           </tree-node>
         </div>
@@ -48,12 +57,27 @@
 export default {
   name: "tree-node",
   props: ["nodeData", "multiple", "value"],
+  components: {
+    treeNode: () => import("./tree-node"),
+    // icon: {
+    //   props: ["name"],
+    //   render(h, context) {
+    //     return h("div", this.$slots[context.name]);
+    //   },
+    // },
+  },
   data() {
     return {
       isOpen: false,
       checked: false,
       selected: null,
     };
+  },
+  mounted() {
+    this.$nextTick().then(() => {
+      console.log(this.$parent.$slots["switcher-close"][0]);
+      console.log(this.$parent.$slots["switcher-open"][0]);
+    });
   },
   watch: {
     value: {
