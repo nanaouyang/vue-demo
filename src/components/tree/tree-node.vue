@@ -36,10 +36,15 @@
       :value="nodeData.id"
     />
     <label :for="nodeData.id">{{ nodeData.label }}</label>
-    <template v-if="isOpen">
+    <div v-show="isOpen">
       <template v-for="node in nodeData.children">
         <div :key="node.id" style="padding: 0 20px;">
-          <tree-node v-model="selected" :multiple="multiple" :node-data="node">
+          <tree-node
+            :deep="deep + 1"
+            v-model="selected"
+            :multiple="multiple"
+            :node-data="node"
+          >
             <template #switcher-close>
               <slot name="switcher-close"></slot>
             </template>
@@ -49,14 +54,14 @@
           </tree-node>
         </div>
       </template>
-    </template>
+    </div>
   </div>
 </template>
 
 <script>
 export default {
   name: "tree-node",
-  props: ["nodeData", "multiple", "value"],
+  props: ["nodeData", "multiple", "value", "deep"],
   components: {
     treeNode: () => import("./tree-node"),
     // icon: {
@@ -73,15 +78,29 @@ export default {
       selected: null,
     };
   },
-  mounted() {
-    this.$nextTick().then(() => {
-      console.log(this.$parent.$slots["switcher-close"][0]);
-      console.log(this.$parent.$slots["switcher-open"][0]);
-    });
-  },
+  // mounted() {
+  //   this.$nextTick().then(() => {
+  //     console.log(this.$parent.$slots["switcher-close"][0]);
+  //     console.log(this.$parent.$slots["switcher-open"][0]);
+  //   });
+  // },
   watch: {
     value: {
       handler(v) {
+        if (!this.multiple && this.nodeData.id === v) {
+          let parent = this.$parent;
+          while (parent.deep !== 0) {
+            parent.isOpen = true;
+            parent = parent.$parent;
+          }
+        }
+        if (this.multiple && v.includes(this.nodeData.id)) {
+          let parent = this.$parent;
+          while (parent.deep !== 0) {
+            parent.isOpen = true;
+            parent = parent.$parent;
+          }
+        }
         this.selected = v;
       },
       immediate: true,

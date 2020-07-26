@@ -2,6 +2,7 @@
   <div>
     <template v-for="node in treeData">
       <tree-node
+        :deep="deep + 1"
         v-model="selected"
         :multiple="multiple"
         :key="node.id"
@@ -30,6 +31,7 @@ export default {
   props: ["dataSource", "multiple", "value"],
   data() {
     return {
+      deep: 0,
       selected: this.value,
     };
   },

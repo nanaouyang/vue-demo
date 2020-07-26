@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     {{ selected }}
-    <cc-tree v-model="selected" :multiple="false" :dataSource="dataSource">
+    <cc-tree v-model="selected" :multiple="true" :dataSource="dataSource">
       <template #switcher-close>
         <span style="color: #f0f;">--</span>
       </template>
@@ -76,7 +76,7 @@ export default {
   },
   data() {
     return {
-      selected: [5],
+      selected: [4, 6, 2],
       dataSource: [
         { id: 1, pid: 0, value: "a", label: "aa" },
         { id: 2, pid: 0, value: "b", label: "bb" },
