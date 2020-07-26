@@ -1,5 +1,11 @@
 <template>
   <div id="app">
+    {{ selected }}
+    <cc-tree
+      v-model="selected"
+      :multiple="false"
+      :dataSource="dataSource"
+    ></cc-tree>
     <div id="hook-arguments-example" v-demo:foo.sync="message"></div>
     <tab2></tab2>
     <img :src="img()" alt="" />
@@ -67,6 +73,15 @@ export default {
   },
   data() {
     return {
+      selected: [5],
+      dataSource: [
+        { id: 1, pid: 0, value: "a", label: "aa" },
+        { id: 2, pid: 0, value: "b", label: "bb" },
+        { id: 3, pid: 1, value: "c", label: "cc" },
+        { id: 4, pid: 1, value: "d", label: "dd" },
+        { id: 5, pid: 3, value: "e", label: "ee" },
+        { id: 6, pid: 2, value: "f", label: "ff" },
+      ],
       message: "dasd",
       currentComponent: "",
       msg: "tab1",
@@ -130,12 +145,12 @@ export default {
 </script>
 
 <style>
-#app {
-  font-family: "Avenir", Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
+/*#app {*/
+/*  font-family: "Avenir", Helvetica, Arial, sans-serif;*/
+/*  -webkit-font-smoothing: antialiased;*/
+/*  -moz-osx-font-smoothing: grayscale;*/
+/*  text-align: center;*/
+/*  color: #2c3e50;*/
+/*  margin-top: 60px;*/
+/*}*/
 </style>
