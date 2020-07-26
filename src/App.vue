@@ -85,6 +85,7 @@ export default {
         { id: 5, pid: 3, value: "e", label: "ee" },
         { id: 6, pid: 2, value: "f", label: "ff" },
         { id: 7, pid: 5, value: "g", label: "gg" },
+        { id: 8, pid: 4, value: "h", label: "hh" },
       ],
       message: "dasd",
       currentComponent: "",

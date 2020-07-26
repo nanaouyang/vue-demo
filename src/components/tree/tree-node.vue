@@ -1,6 +1,6 @@
 <template>
   <div>
-    <span @click="isOpen = !isOpen" v-if="nodeData.children">
+    <span @click="handleClick" v-if="nodeData.children">
       <span v-if="isOpen">
         <!--        <div ref="icona"></div>-->
         <slot name="switcher-close"></slot>
@@ -84,6 +84,16 @@ export default {
   //     console.log(this.$parent.$slots["switcher-open"][0]);
   //   });
   // },
+  methods: {
+    handleClick() {
+      this.$parent.$children.forEach((item) => {
+        if (item.nodeData.id !== this.nodeData.id) {
+          item.isOpen = false;
+        }
+      });
+      this.isOpen = !this.isOpen;
+    },
+  },
   watch: {
     value: {
       handler(v) {
