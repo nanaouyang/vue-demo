@@ -89,6 +89,22 @@ export default {
     };
   },
   mounted() {
+    //默认展开单选已选
+    if (!this.multiple && this.nodeData[this.options.id] === this.value) {
+      let parent = this.$parent;
+      while (parent.deep !== 0) {
+        parent.isOpen = true;
+        parent = parent.$parent;
+      }
+    }
+    //默认展开多选已选
+    if (this.multiple && this.value.includes(this.nodeData[this.options.id])) {
+      let parent = this.$parent;
+      while (parent.deep !== 0) {
+        parent.isOpen = true;
+        parent = parent.$parent;
+      }
+    }
     this.$nextTick().then(() => {
       // console.log(this.$parent.$slots.default);
       // console.log(this.$parent.$slots["switcher-close"][0]);
@@ -120,21 +136,8 @@ export default {
   },
   watch: {
     value: {
+      //默认展开已选项
       handler(v) {
-        if (!this.multiple && this.nodeData[this.options.id] === v) {
-          let parent = this.$parent;
-          while (parent.deep !== 0) {
-            parent.isOpen = true;
-            parent = parent.$parent;
-          }
-        }
-        if (this.multiple && v.includes(this.nodeData[this.options.id])) {
-          let parent = this.$parent;
-          while (parent.deep !== 0) {
-            parent.isOpen = true;
-            parent = parent.$parent;
-          }
-        }
         this.selected = v;
       },
       immediate: true,
