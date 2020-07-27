@@ -28,9 +28,8 @@
 </template>
 
 <script>
-import { Tree } from "coms";
 import { mixin } from "./mixin";
-
+import { list2tree } from "./list2tree";
 export default {
   name: "cc-tree",
   // ["dataSource", "multiple", "value", "options"]
@@ -83,7 +82,7 @@ export default {
   },
   computed: {
     treeData() {
-      return Tree.list2tree({ list: this.dataSource, ...this.options });
+      return list2tree(this.dataSource, this.options);
     },
   },
   methods: {},

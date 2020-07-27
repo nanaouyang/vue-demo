@@ -1,17 +1,15 @@
 <template>
   <div id="app">
-    {{ selected }}
-    <cc-tree v-model="selected" :multiple="true" :dataSource="dataSource">
-      <template #switcher-close>
-        <span style="color: #f0f;">--</span>
-      </template>
-      <template #switcher-open>
-        ++
-      </template>
-      <template #default>
-        opopop
-      </template>
-    </cc-tree>
+    <demo></demo>
+    <!--    <cc-tree v-model="selected" :multiple="true" :dataSource="dataSource">-->
+    <!--      <template #switcher-close>-->
+    <!--        <span style="color: #f0f;">&#45;&#45;</span>-->
+    <!--      </template>-->
+    <!--      <template #switcher-open>-->
+    <!--        ++-->
+    <!--      </template>-->
+    <!--      <template #default="{nodeData}"> 哈{{ nodeData.label }}1 </template>-->
+    <!--    </cc-tree>-->
     <div id="hook-arguments-example" v-demo:foo.sync="message"></div>
     <tab2></tab2>
     <img :src="img()" alt="" />
@@ -59,6 +57,7 @@
 <script>
 import { mapState } from "vuex";
 import { Img } from "coms";
+// import list from "./testData";
 export default {
   name: "app",
   mounted() {
@@ -79,7 +78,7 @@ export default {
   },
   data() {
     return {
-      selected: [4, 6, 2],
+      selected: [7, 6],
       dataSource: [
         { id: 1, pid: 0, value: "a", label: "aa" },
         { id: 2, pid: 0, value: "b", label: "bb" },
@@ -136,6 +135,9 @@ export default {
   },
   watch: {},
   methods: {
+    handleSelect(v) {
+      console.log(v.label);
+    },
     img() {
       return Img.random(400, 400);
     },
