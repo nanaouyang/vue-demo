@@ -19,6 +19,9 @@
             +
           </slot>
         </template>
+        <template #default="{nodeData}">
+          <slot :nodeData="nodeData"> {{ nodeData[options.label] }} </slot>
+        </template>
       </tree-node>
     </template>
   </div>

@@ -35,7 +35,9 @@
       type="radio"
       :value="nodeData[options.value]"
     />
-    <label :for="nodeData[options.id]">{{ nodeData[options.label] }}</label>
+    <label :for="nodeData[options.id]">
+      <slot :nodeData="nodeData">{{ nodeData[options.label] }}</slot>
+    </label>
     <div v-show="isOpen">
       <template v-for="node in nodeData.children">
         <div :key="node[options.key]" style="padding: 0 20px;">
@@ -51,6 +53,9 @@
             </template>
             <template #switcher-open>
               <slot name="switcher-open"></slot>
+            </template>
+            <template #default="{nodeData}">
+              <slot :nodeData="nodeData"></slot>
             </template>
           </tree-node>
         </div>
