@@ -4,7 +4,7 @@
       <span v-if="isOpen">
         <!--        <div ref="icona"></div>-->
         <slot name="switcher-close"></slot>
-        <icon name="switcher-close"></icon>
+        <!--        <icon name="switcher-close"></icon>-->
         <!--          <template #switcher-close>-->
         <!--            11-->
         <!--          </template>-->
@@ -22,24 +22,25 @@
       </span>
     </span>
     <input
-      :id="nodeData.id"
-      :value="nodeData.id"
+      :id="nodeData[options.id]"
+      :value="nodeData[options.value]"
       v-model="selected"
       v-if="multiple"
       type="checkbox"
     />
     <input
-      :id="nodeData.id"
+      :id="nodeData[options.id]"
       v-model="selected"
       v-else
       type="radio"
-      :value="nodeData.id"
+      :value="nodeData[options.value]"
     />
-    <label :for="nodeData.id">{{ nodeData.label }}</label>
+    <label :for="nodeData[options.id]">{{ nodeData[options.label] }}</label>
     <div v-show="isOpen">
       <template v-for="node in nodeData.children">
-        <div :key="node.id" style="padding: 0 20px;">
+        <div :key="node[options.key]" style="padding: 0 20px;">
           <tree-node
+            :options="options"
             :deep="deep + 1"
             v-model="selected"
             :multiple="multiple"
@@ -61,17 +62,17 @@
 <script>
 export default {
   name: "tree-node",
-  props: ["nodeData", "multiple", "value", "deep"],
+  props: ["nodeData", "multiple", "value", "deep", "options"],
   components: {
     treeNode: () => import("./tree-node"),
-    icon: {
-      props: ["name"],
-      render() {
-        return this.$parent.$slots.default
-          ? this.$parent.$slots.default[0]
-          : null;
-      },
-    },
+    // icon: {
+    //   props: ["name"],
+    //   render() {
+    //     return this.$parent.$slots.default
+    //       ? this.$parent.$slots.default[0]
+    //       : null;
+    //   },
+    // },
   },
   data() {
     return {
@@ -90,7 +91,10 @@ export default {
   methods: {
     handleClick() {
       this.$parent.$children.forEach((item) => {
-        if (item.nodeData.id !== this.nodeData.id) {
+        if (
+          item.nodeData &&
+          item.nodeData[this.options.id] !== this.nodeData[this.options.id]
+        ) {
           item.isOpen = false;
         }
       });
@@ -100,14 +104,14 @@ export default {
   watch: {
     value: {
       handler(v) {
-        if (!this.multiple && this.nodeData.id === v) {
+        if (!this.multiple && this.nodeData[this.options.id] === v) {
           let parent = this.$parent;
           while (parent.deep !== 0) {
             parent.isOpen = true;
             parent = parent.$parent;
           }
         }
-        if (this.multiple && v.includes(this.nodeData.id)) {
+        if (this.multiple && v.includes(this.nodeData[this.options.id])) {
           let parent = this.$parent;
           while (parent.deep !== 0) {
             parent.isOpen = true;

@@ -2,10 +2,11 @@
   <div>
     <template v-for="node in treeData">
       <tree-node
+        :options="options"
         :deep="deep + 1"
         v-model="selected"
         :multiple="multiple"
-        :key="node.id"
+        :key="node[options.key]"
         :node-data="node"
       >
         <template #switcher-close>
@@ -28,7 +29,31 @@ import { Tree } from "coms";
 
 export default {
   name: "cc-tree",
-  props: ["dataSource", "multiple", "value"],
+  // ["dataSource", "multiple", "value", "options"]
+  props: {
+    dataSource: {
+      type: Array,
+      default: () => [],
+    },
+    multiple: {
+      type: Boolean,
+      default: false,
+    },
+    // eslint-disable-next-line vue/require-prop-type-constructor
+    value: Array | String,
+    options: {
+      type: Object,
+      default: () => {
+        return {
+          id: "id", //树形结构id
+          pid: "pid", //树形结构pid
+          label: "label", //树显示的标签
+          value: "id", //v-model绑定的值
+          key: "id", //绑定的key
+        };
+      },
+    },
+  },
   data() {
     return {
       deep: 0,
@@ -56,7 +81,7 @@ export default {
   },
   computed: {
     treeData() {
-      return Tree.list2tree({ list: this.dataSource });
+      return Tree.list2tree({ list: this.dataSource, ...this.options });
     },
   },
   methods: {},
