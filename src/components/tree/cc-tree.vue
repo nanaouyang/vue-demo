@@ -28,11 +28,9 @@
 </template>
 
 <script>
-import { mixin } from "./mixin";
 import { list2tree } from "./list2tree";
 export default {
   name: "cc-tree",
-  mixins: [mixin],
   props: {
     dataSource: {
       type: Array,
@@ -64,6 +62,9 @@ export default {
     };
   },
   watch: {
+    selected(v) {
+      this.$emit("input", v);
+    },
     value: {
       handler(v) {
         this.selected = v;

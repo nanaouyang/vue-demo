@@ -22,6 +22,7 @@
       </span>
     </span>
     <input
+      ref="box"
       :id="nodeData[options.id]"
       :value="nodeData[options.value]"
       v-model="selected"
@@ -65,11 +66,8 @@
 </template>
 
 <script>
-import { mixin } from "./mixin";
-
 export default {
   name: "tree-node",
-  mixins: [mixin],
   props: ["nodeData", "multiple", "value", "deep", "options"],
   components: {
     treeNode: () => import("./tree-node"),
@@ -106,6 +104,7 @@ export default {
       }
     }
     this.$nextTick().then(() => {
+      // this.$refs.box.indeterminate = true;
       // console.log(this.$parent.$slots.default);
       // console.log(this.$parent.$slots["switcher-close"][0]);
       // console.log(this.$parent.$slots["switcher-open"][0]);
@@ -135,9 +134,20 @@ export default {
     },
   },
   watch: {
+    selected(v) {
+      this.$emit("input", v);
+    },
     value: {
       //默认展开已选项
       handler(v) {
+        if (this.multiple) {
+          // if (v.length > oldValue.length) {
+          //   console.log("添加");
+          // }
+          // if (v.length < oldValue.length) {
+          //   console.log("删除");
+          // }
+        }
         this.selected = v;
       },
       immediate: true,

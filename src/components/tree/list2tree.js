@@ -1,9 +1,9 @@
 export function list2tree(
   list,
-  { id = "id", pid = "pid", children = "children" }
+  { id = "id", pid = "pid", children = "children" } = {}
 ) {
   return list.reduce((prev, curr) => {
-    const obj = getParent(list, curr[pid], id); // 根据当前项找出父节点
+    const obj = list.find((item) => item[id] === curr[pid]); // 根据当前项找出父节点
     if (obj) {
       // 存在父节点
       // eslint-disable-next-line no-prototype-builtins
@@ -14,13 +14,4 @@ export function list2tree(
     }
     return prev;
   }, []);
-}
-
-function getParent(list = [], pid = "pid", id = "id") {
-  const obj = list.find((item) => item[id] === pid);
-  if (obj) {
-    return obj;
-  } else {
-    return null;
-  }
 }
