@@ -32,7 +32,6 @@ import { mixin } from "./mixin";
 import { list2tree } from "./list2tree";
 export default {
   name: "cc-tree",
-  // ["dataSource", "multiple", "value", "options"]
   mixins: [mixin],
   props: {
     dataSource: {
