@@ -60,8 +60,11 @@
 </template>
 
 <script>
+import { mixin } from "./mixin";
+
 export default {
   name: "tree-node",
+  mixins: [mixin],
   props: ["nodeData", "multiple", "value", "deep", "options"],
   components: {
     treeNode: () => import("./tree-node"),
@@ -77,27 +80,36 @@ export default {
   data() {
     return {
       isOpen: false,
-      checked: false,
       selected: null,
     };
   },
   mounted() {
     this.$nextTick().then(() => {
-      console.log(this.$parent.$slots.default);
+      // console.log(this.$parent.$slots.default);
       // console.log(this.$parent.$slots["switcher-close"][0]);
       // console.log(this.$parent.$slots["switcher-open"][0]);
     });
   },
   methods: {
-    handleClick() {
-      this.$parent.$children.forEach((item) => {
+    //递归关闭
+    closeNode(parent) {
+      parent.$children.forEach((item) => {
         if (
           item.nodeData &&
           item.nodeData[this.options.id] !== this.nodeData[this.options.id]
         ) {
           item.isOpen = false;
         }
+        if (item.$children.length) {
+          this.closeNode(item);
+        }
       });
+    },
+    //点击关闭打开
+    handleClick() {
+      if (this.$parent.$children.some((item) => item.isOpen === false)) {
+        this.closeNode(this.$parent);
+      }
       this.isOpen = !this.isOpen;
     },
   },
@@ -121,9 +133,6 @@ export default {
         this.selected = v;
       },
       immediate: true,
-    },
-    selected(v) {
-      this.$emit("input", v);
     },
   },
 };

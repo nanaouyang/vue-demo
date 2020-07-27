@@ -1,10 +1,7 @@
 const mixin = {
   watch: {
-    value: {
-      handler(v) {
-        this.radio = v;
-      },
-      immediate: true,
+    selected(v) {
+      this.$emit("input", v);
     },
   },
 };

@@ -26,10 +26,12 @@
 
 <script>
 import { Tree } from "coms";
+import { mixin } from "./mixin";
 
 export default {
   name: "cc-tree",
   // ["dataSource", "multiple", "value", "options"]
+  mixins: [mixin],
   props: {
     dataSource: {
       type: Array,
@@ -61,9 +63,6 @@ export default {
     };
   },
   watch: {
-    selected(v) {
-      this.$emit("input", v);
-    },
     value: {
       handler(v) {
         this.selected = v;
