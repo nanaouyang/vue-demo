@@ -88,6 +88,7 @@ export default {
     },
   },
   methods: {
+    //全选
     getIds(id, dataSource) {
       dataSource
         .filter((item) => item[this.options.pid] === id)
@@ -98,6 +99,7 @@ export default {
           this.getIds(i[this.options.id], dataSource);
         });
     },
+    //反选
     getIdsExclude(id, dataSource) {
       dataSource
         .filter((item) => item[this.options.pid] === id)
