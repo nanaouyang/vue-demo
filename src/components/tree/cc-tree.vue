@@ -82,14 +82,6 @@ export default {
       immediate: true,
     },
   },
-  components: {
-    // icon: {
-    //   props: ["name"],
-    //   render(h) {
-    //     return h("span", this.$slots[this.name]);
-    //   },
-    // },
-  },
   computed: {
     treeData() {
       return list2tree(this.dataSource, this.options);

@@ -71,14 +71,6 @@ export default {
   props: ["nodeData", "multiple", "value", "deep", "options"],
   components: {
     treeNode: () => import("./tree-node"),
-    // icon: {
-    //   props: ["name"],
-    //   render() {
-    //     return this.$parent.$slots.default
-    //       ? this.$parent.$slots.default[0]
-    //       : null;
-    //   },
-    // },
   },
   data() {
     return {
@@ -103,12 +95,6 @@ export default {
         parent = parent.$parent;
       }
     }
-    this.$nextTick().then(() => {
-      // this.$refs.box.indeterminate = true;
-      // console.log(this.$parent.$slots.default);
-      // console.log(this.$parent.$slots["switcher-close"][0]);
-      // console.log(this.$parent.$slots["switcher-open"][0]);
-    });
   },
   methods: {
     //递归关闭
