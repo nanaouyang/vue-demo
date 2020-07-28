@@ -2,23 +2,10 @@
   <div>
     <span @click="handleClick" v-if="nodeData.children">
       <span v-if="isOpen">
-        <!--        <div ref="icona"></div>-->
         <slot name="switcher-close"></slot>
-        <!--        <icon name="switcher-close"></icon>-->
-        <!--          <template #switcher-close>-->
-        <!--            11-->
-        <!--          </template>-->
-        <!--        </icon>-->
-        <!--        </slot>-->
       </span>
       <span v-else>
         <slot name="switcher-open"></slot>
-        <!--        <icon name="switcher-close"></icon>-->
-        <!--          <template #switcher-close>-->
-        <!--            222-->
-        <!--          </template>-->
-        <!--        </icon>-->
-        <!--        </slot>-->
       </span>
     </span>
     <input
@@ -32,7 +19,7 @@
     <input
       :id="nodeData[options.id]"
       v-model="selected"
-      v-else
+      v-if="!multiple && !nodeData.children"
       type="radio"
       :value="nodeData[options.value]"
     />
