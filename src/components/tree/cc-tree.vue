@@ -102,8 +102,8 @@ export default {
       dataSource
         .filter((item) => item[this.options.pid] === id)
         .forEach((i) => {
-          this.selected = this.selected.filter((n) => n !== i.id);
-          this.getIds(i[this.options.id], dataSource);
+          this.selected = this.selected.filter((n) => n !== i[this.options.id]);
+          this.getIdsExclude(i[this.options.id], dataSource);
         });
     },
   },

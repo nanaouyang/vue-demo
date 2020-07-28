@@ -120,18 +120,7 @@ export default {
     },
   },
   watch: {
-    selected(v, o) {
-      if (this.multiple && v && o) {
-        if (v.length > o.length) {
-          this.$emit(
-            "add",
-            v.filter((item) => !o.includes(item))
-          );
-        }
-        if (v.length < o.length) {
-          console.log("删除");
-        }
-      }
+    selected(v) {
       this.$emit("input", v);
     },
     value: {
