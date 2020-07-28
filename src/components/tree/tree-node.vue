@@ -134,20 +134,23 @@ export default {
     },
   },
   watch: {
-    selected(v) {
+    selected(v, o) {
+      if (this.multiple && v && o) {
+        if (v.length > o.length) {
+          this.$emit(
+            "add",
+            v.filter((item) => !o.includes(item))
+          );
+        }
+        if (v.length < o.length) {
+          console.log("删除");
+        }
+      }
       this.$emit("input", v);
     },
     value: {
       //默认展开已选项
       handler(v) {
-        if (this.multiple) {
-          // if (v.length > oldValue.length) {
-          //   console.log("添加");
-          // }
-          // if (v.length < oldValue.length) {
-          //   console.log("删除");
-          // }
-        }
         this.selected = v;
       },
       immediate: true,

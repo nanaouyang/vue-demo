@@ -62,7 +62,17 @@ export default {
     };
   },
   watch: {
-    selected(v) {
+    selected(v, o) {
+      if (this.multiple && v && o) {
+        if (v.length > o.length) {
+          const id = v.filter((item) => !o.includes(item));
+          this.getIds(id[0], this.dataSource);
+        }
+        if (v.length < o.length) {
+          const id = o.filter((item) => !v.includes(item));
+          this.getIdsExclude(id[0], this.dataSource);
+        }
+      }
       this.$emit("input", v);
     },
     value: {
@@ -85,7 +95,26 @@ export default {
       return list2tree(this.dataSource, this.options);
     },
   },
-  methods: {},
+  methods: {
+    getIds(id, dataSource) {
+      dataSource
+        .filter((item) => item[this.options.pid] === id)
+        .forEach((i) => {
+          this.selected = [
+            ...new Set([...this.selected, ...[i[this.options.id]]]),
+          ];
+          this.getIds(i[this.options.id], dataSource);
+        });
+    },
+    getIdsExclude(id, dataSource) {
+      dataSource
+        .filter((item) => item[this.options.pid] === id)
+        .forEach((i) => {
+          this.selected = this.selected.filter((n) => n !== i.id);
+          this.getIds(i[this.options.id], dataSource);
+        });
+    },
+  },
 };
 </script>
 
