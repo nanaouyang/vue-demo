@@ -9,7 +9,6 @@
       </span>
     </span>
     <input
-      ref="box"
       :id="nodeData[options.id]"
       :value="nodeData[options.value]"
       v-model="selected"
@@ -76,6 +75,7 @@ export default {
     }
     //默认展开多选已选
     if (this.multiple && this.value.includes(this.nodeData[this.options.id])) {
+      console.log("multiple");
       let parent = this.$parent;
       while (parent.deep !== 0) {
         parent.isOpen = true;
