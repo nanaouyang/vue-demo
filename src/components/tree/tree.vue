@@ -1,17 +1,24 @@
 <template>
   <div>
-    <cc-tree :multiple="multiple" v-model="val" :dataSource="dataSource">
-    </cc-tree>
+    {{ treeStore }}
+    <cc-tree :treeStore="treeStore"> </cc-tree>
   </div>
 </template>
 <script>
+import TreeStore from "./tree-store";
 export default {
   name: "tree",
+  data() {
+    const treeStore = new TreeStore(this.dataSource, this.options);
+    return {
+      treeStore,
+    };
+  },
   computed: {
     val: {
       get() {
         if (this.multiple) {
-          return this.value ? this.value.split(",").filter((i) => i) : [];
+          return this.value ? this.value.split(",").filter(Boolean) : [];
         } else {
           return this.value;
         }
@@ -26,9 +33,18 @@ export default {
     },
   },
   props: {
-    multiple: {
-      type: Boolean,
-      deafult: false,
+    options: {
+      type: Object,
+      default: () => {
+        return {
+          id: "id", //树形结构id
+          pid: "pid", //树形结构pid
+          label: "label", //树显示的标签
+          value: "id", //v-model绑定的值
+          key: "id", //绑定的key
+          multiple: false,
+        };
+      },
     },
     value: {
       type: String,
