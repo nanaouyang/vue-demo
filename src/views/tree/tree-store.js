@@ -34,7 +34,19 @@ export default class TreeStore {
 
   //原始赋值
   setValue(value) {
-    this.selected = value;
+    if (this.multiple) {
+      if (value.length > this.selected.length) {
+        const t = value.filter((_) => !this.selected.includes(_));
+        this.selected = [...new Set([...this.selected, ...this.getIdsById(t)])];
+      } else {
+        const t = this.selected.filter((_) => !value.includes(_));
+        this.selected = this.selected.filter(
+          (_) => !this.getIdsById(t).includes(_)
+        );
+      }
+    } else {
+      this.selected = value;
+    }
   }
 
   //获取字符串形式值
@@ -53,5 +65,21 @@ export default class TreeStore {
     } else {
       this.selected = value;
     }
+  }
+  getIdsById(value) {
+    let a = [];
+    const getChildren = (val) => {
+      val.forEach((item) => {
+        const t = this.listData
+          .filter((_) => _[this.getOptions().pid] === item)
+          .map((_) => _[this.getOptions().id]);
+        if (t.length) {
+          a = [...new Set([...a, ...t])];
+          getChildren(t);
+        }
+      });
+    };
+    getChildren(value);
+    return a;
   }
 }

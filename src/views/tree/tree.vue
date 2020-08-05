@@ -1,5 +1,6 @@
 <template>
   <div>
+    {{ v }}
     <template v-for="node in nodes">
       <node :tree-store="treeStore" :key="node.id" :node-data="node"></node>
     </template>
@@ -9,14 +10,18 @@
 
 <script>
 import TreeStore from "./tree-store";
+// import Dep from "./dep";
 import node from "./node";
-
+// const dep = new Dep();
 export default {
   name: "tree",
   components: {
     node,
   },
   computed: {
+    v() {
+      return this.treeStore.getValue();
+    },
     val() {
       return this.treeStore.getStringValue();
     },
@@ -32,11 +37,18 @@ export default {
   },
   created() {
     this.treeStore.setStringValue(this.value);
+    // dep.add(this.update(this.val));
   },
   watch: {
     val(v) {
+      // dep.notify(v);
       this.$emit("input", v);
     },
+  },
+  methods: {
+    // update(v) {
+    //   this.$emit("input", v);
+    // },
   },
   props: {
     //数据配置
