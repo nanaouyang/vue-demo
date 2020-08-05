@@ -7,7 +7,7 @@
 <script>
 import TreeStore from "./tree-store";
 export default {
-  name: "tree",
+  name: "tre1e",
   data() {
     const treeStore = new TreeStore(this.dataSource, this.options);
     return {
