@@ -13,31 +13,45 @@ export default class TreeStore {
       multiple: false,
       ...options,
     };
-    this.selected = null;
     this.multiple = options.multiple;
+    this.selected = this.multiple ? [] : "";
   }
 
+  //获取转化后数据
   getTreeData() {
     return this.treeData;
   }
 
+  //获取配置信息
   getOptions() {
     return this.options;
   }
 
+  //获得原始值
   getValue() {
     return this.selected;
   }
 
+  //原始赋值
   setValue(value) {
     this.selected = value;
   }
 
+  //获取字符串形式值
   getStringValue() {
-    return this.selected;
+    if (this.multiple) {
+      return this.selected ? this.selected.join(",") : "";
+    } else {
+      return this.selected;
+    }
   }
 
+  //字符串形式赋值
   setStringValue(value) {
-    this.selected = value;
+    if (this.multiple) {
+      this.selected = value ? value.split(",").filter(Boolean) : [];
+    } else {
+      this.selected = value;
+    }
   }
 }

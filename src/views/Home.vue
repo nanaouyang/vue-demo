@@ -31,7 +31,7 @@ export default {
   },
   data() {
     return {
-      val: ["7"],
+      val: "7",
       dataSource: [
         { id: "1", pid: "0", value: "a", label: "aa" },
         { id: "2", pid: "0", value: "b", label: "bb" },
