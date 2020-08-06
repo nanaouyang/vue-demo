@@ -9,6 +9,7 @@
       </span>
     </span>
     <input
+      :indeterminate.prop="true"
       :id="nodeData[options.id]"
       :value="nodeData[options.value]"
       v-model="selected"

@@ -1,10 +1,9 @@
 <template>
   <div>
-    {{ v }}
+    {{ nodes }}
     <template v-for="node in nodes">
       <node :tree-store="treeStore" :key="node.id" :node-data="node"></node>
     </template>
-    {{ treeStore }}
   </div>
 </template>
 
@@ -19,9 +18,6 @@ export default {
     node,
   },
   computed: {
-    v() {
-      return this.treeStore.getValue();
-    },
     val() {
       return this.treeStore.getStringValue();
     },

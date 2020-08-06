@@ -2,7 +2,7 @@ import Vue from "vue";
 import Vuex from "vuex";
 import { user } from "./user";
 import { dict } from "./dict";
-import { list } from "../services/api";
+import { list } from "@/services/api";
 
 Vue.use(Vuex);
 

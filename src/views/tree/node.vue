@@ -8,13 +8,16 @@
       :value="nodeData[options.value]"
     />
     <input
+      :indeterminate.prop="nodeData.indeterminate"
       :id="nodeData[options.id]"
       v-model="val"
       v-if="options.multiple"
       type="checkbox"
       :value="nodeData[options.value]"
     />
-    <label :for="nodeData[options.id]">{{ nodeData[options.label] }}</label>
+    <label :for="nodeData[options.id]"
+      >{{ nodeData.id }}{{ nodeData[options.label] }}</label
+    >
     <template v-for="node in nodeData.children">
       <node
         style="margin-left: 10px;"

@@ -1,21 +1,23 @@
 <template>
   <div>
-    {{ val }}
-    <tree
-      :options="{ multiple: true }"
-      v-model="val"
-      :data-source="dataSource"
-    ></tree>
+    <form1></form1>
+    <!--    <tree-->
+    <!--      :options="{ multiple: true }"-->
+    <!--      v-model="val"-->
+    <!--      :data-source="dataSource"-->
+    <!--    ></tree>-->
   </div>
 </template>
 
 <script>
 // @ is an alias to /src
 import { Redux } from "@/Redux";
-import tree from "./tree/tree";
+// import tree from "./tree/tree";
 export default {
   name: "Home",
-  components: { tree },
+  components: {
+    form1: () => import("./form/item.jsx"),
+  },
   computed: {},
   created() {
     this.$root.redux = new Redux();
