@@ -9,32 +9,38 @@
       </span>
     </span>
     <input
-      :indeterminate.prop="true"
-      :id="nodeData[options.id]"
-      :value="nodeData[options.value]"
-      v-model="selected"
-      v-if="multiple"
-      type="checkbox"
+        :indeterminate.prop="true"
+        :id="nodeData[options.id]"
+        :value="nodeData[options.value]"
+        v-model="selected"
+        v-if="multiple"
+        type="checkbox"
     />
     <input
-      :id="nodeData[options.id]"
-      v-model="selected"
-      v-if="!multiple && !nodeData.children"
-      type="radio"
-      :value="nodeData[options.value]"
+        :id="nodeData[options.id]"
+        v-model="selected"
+        v-if="!multiple && !nodeData.children"
+        type="radio"
+        :value="nodeData[options.value]"
     />
-    <label :for="nodeData[options.id]">
+    <label
+        :class="{ active: selected===nodeData[options.value]||active.includes(nodeData[options.value]) }"
+        @click="handleClickNode"
+        :for="nodeData[options.id]"
+    >
       <slot :nodeData="nodeData">{{ nodeData[options.label] }}</slot>
     </label>
     <div v-show="isOpen">
       <template v-for="node in nodeData.children">
-        <div :key="node[options.key]" style="padding: 0 20px;">
+        <div :key="node[options.key]" style="padding: 0 20px">
           <tree-node
-            :options="options"
-            :deep="deep + 1"
-            v-model="selected"
-            :multiple="multiple"
-            :node-data="node"
+            :active="active"
+            @onChange="onChange"
+              :options="options"
+              :deep="deep + 1"
+              v-model="selected"
+              :multiple="multiple"
+              :node-data="node"
           >
             <template #switcher-close>
               <slot name="switcher-close"></slot>
@@ -42,7 +48,7 @@
             <template #switcher-open>
               <slot name="switcher-open"></slot>
             </template>
-            <template #default="{nodeData}">
+            <template #default="{ nodeData }">
               <slot :nodeData="nodeData"></slot>
             </template>
           </tree-node>
@@ -55,7 +61,7 @@
 <script>
 export default {
   name: "tree-node",
-  props: ["nodeData", "multiple", "value", "deep", "options"],
+  props: ["nodeData", "multiple", "value", "deep", "options", "active"],
   components: {
     treeNode: () => import("./tree-node"),
   },
@@ -76,7 +82,6 @@ export default {
     }
     //默认展开多选已选
     if (this.multiple && this.value.includes(this.nodeData[this.options.id])) {
-      console.log("multiple");
       let parent = this.$parent;
       while (parent.deep !== 0) {
         parent.isOpen = true;
@@ -85,12 +90,18 @@ export default {
     }
   },
   methods: {
+    onChange(v) {
+      this.$emit("onChange", v);
+    },
+    handleClickNode() {
+      this.$emit("onChange", this.nodeData);
+    },
     //递归关闭
     closeNode(parent) {
       parent.$children.forEach((item) => {
         if (
-          item.nodeData &&
-          item.nodeData[this.options.id] !== this.nodeData[this.options.id]
+            item.nodeData &&
+            item.nodeData[this.options.id] !== this.nodeData[this.options.id]
         ) {
           item.isOpen = false;
         }
@@ -122,4 +133,8 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+.active {
+  color: #ff00ff;
+}
+</style>

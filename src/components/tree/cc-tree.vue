@@ -2,12 +2,14 @@
   <div>
     <template v-for="node in treeData">
       <tree-node
-        :options="options"
-        :deep="deep + 1"
-        v-model="selected"
-        :multiple="multiple"
-        :key="node[options.key]"
-        :node-data="node"
+          :active="active"
+          @onChange="onChange"
+          :options="options"
+          :deep="deep + 1"
+          v-model="selected"
+          :multiple="multiple"
+          :key="node[options.key]"
+          :node-data="node"
       >
         <template #switcher-close>
           <slot name="switcher-close">
@@ -19,8 +21,8 @@
             +
           </slot>
         </template>
-        <template #default="{nodeData}">
-          <slot :nodeData="nodeData"> {{ nodeData[options.label] }} </slot>
+        <template #default="{ nodeData }">
+          <slot :nodeData="nodeData"> {{ nodeData[options.label] }}</slot>
         </template>
       </tree-node>
     </template>
@@ -28,20 +30,29 @@
 </template>
 
 <script>
-import { list2tree } from "./list2tree";
+import {list2tree} from "./list2tree";
+
 export default {
   name: "cc-tree",
   props: {
+    // 高亮显示的value
+    active: {
+      type: Array,
+      default: () => [],
+    },
+    //数据源
     dataSource: {
       type: Array,
       default: () => [],
     },
+    //是否多选
     multiple: {
       type: Boolean,
       default: false,
     },
     // eslint-disable-next-line vue/require-prop-type-constructor
     value: Array | String,
+    //数据结构
     options: {
       type: Object,
       default: () => {
@@ -88,25 +99,28 @@ export default {
     },
   },
   methods: {
+    onChange(v) {
+      this.$emit('onChange', v)
+    },
     //全选
     getIds(id, dataSource) {
       dataSource
-        .filter((item) => item[this.options.pid] === id)
-        .forEach((i) => {
-          this.selected = [
-            ...new Set([...this.selected, ...[i[this.options.id]]]),
-          ];
-          this.getIds(i[this.options.id], dataSource);
-        });
+          .filter((item) => item[this.options.pid] === id)
+          .forEach((i) => {
+            this.selected = [
+              ...new Set([...this.selected, ...[i[this.options.id]]]),
+            ];
+            this.getIds(i[this.options.id], dataSource);
+          });
     },
     //反选
     getIdsExclude(id, dataSource) {
       dataSource
-        .filter((item) => item[this.options.pid] === id)
-        .forEach((i) => {
-          this.selected = this.selected.filter((n) => n !== i[this.options.id]);
-          this.getIdsExclude(i[this.options.id], dataSource);
-        });
+          .filter((item) => item[this.options.pid] === id)
+          .forEach((i) => {
+            this.selected = this.selected.filter((n) => n !== i[this.options.id]);
+            this.getIdsExclude(i[this.options.id], dataSource);
+          });
     },
   },
 };

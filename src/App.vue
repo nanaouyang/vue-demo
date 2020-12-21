@@ -1,62 +1,21 @@
 <template>
   <div id="app">
-    <!--    <demo></demo>-->
-    <!--    <cc-tree v-model="selected" :multiple="true" :dataSource="dataSource">-->
-    <!--      <template #switcher-close>-->
-    <!--        <span style="color: #f0f;">&#45;&#45;</span>-->
-    <!--      </template>-->
-    <!--      <template #switcher-open>-->
-    <!--        ++-->
-    <!--      </template>-->
-    <!--      <template #default="{nodeData}"> 哈{{ nodeData.label }}1 </template>-->
-    <!--    </cc-tree>-->
-    <!--    <div id="hook-arguments-example" v-demo:foo.sync="message"></div>-->
-    <!--    <tab2></tab2>-->
-    <!--    <img :src="img()" alt="" />-->
-    <!--    <HelloWorld></HelloWorld>-->
-    <!--    {{ user }}-->
-    <!--    {{ count }}-->
-    <!--    {{ user1 }}-->
-    <!--    {{ user2 }}-->
-    <!--    <el-button @click="add">+</el-button>-->
-    <!--    <el-button @click="asyncAdd">async+</el-button>-->
-    <!--    <el-button @click="min">-</el-button>-->
-    <!--    <vi-modal>-->
-    <!--      <template #test1="slotProps">-->
-    <!--        <el-button>{{ slotProps.slotProps }}</el-button>-->
-    <!--      </template>-->
-    <!--      <el-button>弹窗</el-button>-->
-    <!--    </vi-modal>-->
-    <!--    <el-input v-model="msg"></el-input>-->
-    <!--    <component :is="msg"></component>-->
-    <!--    <el-table :data="tableData" border style="width: 100%;">-->
-    <!--      <el-table-column fixed prop="date" label="日期" width="150">-->
-    <!--      </el-table-column>-->
-    <!--      <el-table-column prop="name" label="姓名" width="120"> </el-table-column>-->
-    <!--      <el-table-column prop="province" label="省份" width="120">-->
-    <!--      </el-table-column>-->
-    <!--      <el-table-column prop="city" label="市区" width="120"> </el-table-column>-->
-    <!--      <el-table-column prop="address" label="地址" width="300">-->
-    <!--      </el-table-column>-->
-    <!--      <el-table-column label="邮编" width="120">-->
-    <!--        <template #default="{ row }">-->
-    <!--          {{ row.zip }}-->
-    <!--        </template>-->
-    <!--      </el-table-column>-->
-    <!--      <el-table-column fixed="right" label="操作" width="100">-->
-    <!--        <template>-->
-    <!--          <el-button type="text" size="small">查看</el-button>-->
-    <!--          <el-button type="text" size="small">编辑</el-button>-->
-    <!--        </template>-->
-    <!--      </el-table-column>-->
-    <!--    </el-table>-->
+    {{selected}}
+        <cc-tree :active="[6]" @onChange="onChange" v-model="selected" :multiple="false" :dataSource="dataSource">
+          <template #switcher-close>
+            <span style="color: #f0f;">--</span>
+          </template>
+          <template #switcher-open>
+            ++
+          </template>
+          <template #default="{nodeData}"> 哈{{ nodeData.label }}1 </template>
+        </cc-tree>
     <router-view />
   </div>
 </template>
 
 <script>
 // import { mapState } from "vuex";
-import { Img } from "coms";
 // import list from "./testData";
 export default {
   name: "app",
@@ -78,7 +37,7 @@ export default {
   },
   data() {
     return {
-      selected: [7, 6],
+      selected: 6,
       dataSource: [
         { id: 1, pid: 0, value: "a", label: "aa" },
         { id: 2, pid: 0, value: "b", label: "bb" },
@@ -135,11 +94,14 @@ export default {
   },
   watch: {},
   methods: {
+    onChange(v){
+      console.log(v)
+    },
     handleSelect(v) {
       console.log(v.label);
     },
     img() {
-      return Img.random(400, 400);
+      return '';
     },
     add() {
       this.$store.commit("add");
