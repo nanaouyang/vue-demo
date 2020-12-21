@@ -30,31 +30,33 @@
     >
       <slot :nodeData="nodeData">{{ nodeData[options.label] }}</slot>
     </label>
-    <div v-show="isOpen">
-      <template v-for="node in nodeData.children">
-        <div :key="node[options.key]" style="padding: 0 20px">
-          <tree-node
-            :active="active"
-            @onChange="onChange"
-              :options="options"
-              :deep="deep + 1"
-              v-model="selected"
-              :multiple="multiple"
-              :node-data="node"
-          >
-            <template #switcher-close>
-              <slot name="switcher-close"></slot>
-            </template>
-            <template #switcher-open>
-              <slot name="switcher-open"></slot>
-            </template>
-            <template #default="{ nodeData }">
-              <slot :nodeData="nodeData"></slot>
-            </template>
-          </tree-node>
-        </div>
-      </template>
-    </div>
+    <el-collapse-transition>
+      <div v-show="isOpen">
+        <template v-for="node in nodeData.children">
+          <div :key="node[options.key]" style="padding: 0 20px">
+            <tree-node
+                :active="active"
+                @onChange="onChange"
+                :options="options"
+                :deep="deep + 1"
+                v-model="selected"
+                :multiple="multiple"
+                :node-data="node"
+            >
+              <template #switcher-close>
+                <slot name="switcher-close"></slot>
+              </template>
+              <template #switcher-open>
+                <slot name="switcher-open"></slot>
+              </template>
+              <template #default="{ nodeData }">
+                <slot :nodeData="nodeData"></slot>
+              </template>
+            </tree-node>
+          </div>
+        </template>
+      </div>
+    </el-collapse-transition>
   </div>
 </template>
 
